@@ -1,0 +1,17 @@
+{% extends "template.html" %}
+{% block container %}
+    <div class="page-header text-center py-3">
+        <h1>{{ livro.nome }}</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <img src="{{ url_for('imagem', nome_arquivo=capa) }}" class="card-img-top" alt="...">
+        </div>
+        <div class="col-sm-8">
+            <p class="h4"><strong>Gênero: </strong>{{ livro.genero }}</p>
+            <p class="h4"><strong>Autor: </strong>{{ livro.autor }}</p>
+            <p class="h4"><strong>Número de páginas: </strong>{{ livro.num_paginas }}</p>
+        </div>
+    </div>
+{% endblock %}
