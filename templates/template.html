@@ -12,10 +12,6 @@
     <body>
         <nav class="navbar navbar-dark navbar-expand-lg h5" style="background-image: linear-gradient(#19A,#19BFB7);">
           <div class="container">
-            <a class="navbar-brand" href="{{ url_for('home') }}">Receitas</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -23,7 +19,7 @@
                 </li>
                 {% if session['usuario_logado'] %}
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="{{ url_for('cadastro') }}"><i class="bi bi-book"></i> Novo Livro</a>
+                  <a class="nav-link" aria-current="page" href="{{ url_for('cadastro') }}"><i class="bi bi-book"></i> Adicionar Receita </a>
                 </li>
                 {% endif %}
               </ul>
@@ -31,11 +27,11 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                   {% if session['usuario_logado'] %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                    <a class="nav-link" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right"></i> SigUt</a>
                   </li>
                   {% else %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('login') }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                    <a class="nav-link" href="{{ url_for('login') }}"><i class="bi bi-box-arrow-in-right"></i> SigIn</a>
                   </li>
                   {% endif %}
                 </ul>
@@ -63,7 +59,7 @@
         <footer class="pt-2">
             <!-- Copyright -->
             <div class="text-center py-1">
-                <p class="text-white">© Biblioteca - 2022</p>
+                <p class="text-white">© Álbum de Receitas - 2023</p>
             </div>
             <!-- Copyright -->
         </footer>

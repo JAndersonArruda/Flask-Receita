@@ -1,19 +1,19 @@
 from flask import render_template, request, redirect, session, flash, url_for, send_from_directory
 from app import app, db
-from models import Livros, Usuarios
+from models import Receitas, Usuarios
 import os
 import time
 
 @app.route('/')
 def home():
-    lista = Livros.query.order_by(Livros.id)
-    return render_template('lista.html', titulo='Livros', livros=lista)
+    lista = Receitas.query.order_by(Receitas.id)
+    return render_template('lista.html', titulo='Receitas', receitas=lista)
 
 @app.route('/cadastro')
 def cadastro():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('cadastro')))
-    return render_template('cadastro.html', titulo='Novo Livro')
+    return render_template('cadastro.html', titulo='Adicionar Receita')
 
 @app.route('/criar', methods=['POST',])
 def criar():
@@ -22,74 +22,73 @@ def criar():
     autor = request.form['autor']
     num_paginas = request.form['num_paginas']
 
-    livro = Livros.query.filter_by(nome=nome).first()
+    receita = Receitas.query.filter_by(nome=nome).first()
 
-    if livro:
-        flash('Livro já existente!')
+    if receita:
+        flash(f'A Receita de {nome} já existe em nossa platafomar! Caso haja alguma mudança na receita, tente edita-lá.')
         return redirect(url_for('home'))
 
-    novo_livro = Livros(nome=nome, genero=genero, autor=autor, num_paginas=num_paginas)
+    nova_receita = Receitas(nome=nome, genero=genero, autor=autor, num_paginas=num_paginas)
 
-    db.session.add(novo_livro)
+    db.session.add(nova_receita)
     db.session.commit()
 
     capa = request.files['capa']
     upload_path = app.config['UPLOAD_PATH']
     timestamp = time.time()
-    capa.save(f'{upload_path}/capa{novo_livro.id}-{timestamp}.jpg')
+    capa.save(f'{upload_path}/capa{nova_receita.id}-{timestamp}.jpg')
 
-    flash('Livro criado com sucesso!')
+    flash(f'A Receita de {nome} adicionada com sucesso!')
     return redirect(url_for('home'))
 
 @app.route('/editar/<int:id>')
 def editar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('editar')))
-    livro = Livros.query.filter_by(id=id).first()
-    print(livro)
-    return render_template('editar.html', titulo='Editar Livro', livro=livro)
+    receita = Receitas.query.filter_by(id=id).first()
+    print(receita)
+    return render_template('editar.html', titulo='Editar Receita', receita=receita)
 
 @app.route('/atualizar', methods=['POST',])
 def atualizar():
-    livro = Livros.query.filter_by(id=request.form['id']).first()
-    livro.nome = request.form['nome']
-    livro.genero = request.form['genero']
-    livro.autor = request.form['autor']
-    livro.num_paginas = request.form['num_paginas']
+    receita = Receitas.query.filter_by(id=request.form['id']).first()
+    receita.nome = request.form['nome']
+    receita.genero = request.form['genero']
+    receita.autor = request.form['autor']
+    receita.num_paginas = request.form['num_paginas']
 
-    db.session.add(livro)
+    db.session.add(receita)
     db.session.commit()
 
     capa = request.files['capa']
     upload_path = app.config['UPLOAD_PATH']
     timestamp = time.time()
-    deleta_arquivo(livro.id)
-    capa.save(f'{upload_path}/capa{livro.id}-{timestamp}.jpg')
+    deleta_arquivo(receita.id)
+    capa.save(f'{upload_path}/capa{receita.id}-{timestamp}.jpg')
 
-    flash('Livro atualizado com sucesso!')
+    flash(f'A receita de {receita.nome} foi atualizada com sucesso!')
     return redirect(url_for('home'))
 
 @app.route('/deletar/<int:id>')
 def deletar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login'))
-
-    Livros.query.filter_by(id=id).delete()
+    Receitas.query.filter_by(id=id).delete()
     db.session.commit()
-    flash('Livro deletado com sucesso!')
+    flash(f'A receita foi deletada com sucesso!')
 
     return redirect(url_for('home'))
 
 @app.route('/visualizar/<int:id>')
 def visualizar(id):
-    livro = Livros.query.filter_by(id=id).first()
-    capa_livro = recupera_imagem(id)
-    return render_template('livro.html', livro=livro, capa=capa_livro)
+    receita = Receitas.query.filter_by(id=id).first()
+    capa_receita = recupera_imagem(id)
+    return render_template('receita.html', receita=receita, capa=capa_receita)
 
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima')
-    return render_template('login.html', proxima=proxima, titulo='Login')
+    return render_template('login.html', proxima=proxima, titulo='SigIn')
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
@@ -110,7 +109,7 @@ def autenticar():
 @app.route('/logout')
 def logout():
     session['usuario_logado'] = None
-    flash('Logout efetuado com sucesso!')
+    flash('SigUt efetuado com sucesso!')
     return redirect(url_for('home'))
 
 @app.route('/uploads/<nome_arquivo>')
@@ -127,5 +126,5 @@ def recupera_imagem(id):
 def deleta_arquivo(id):
     arquivo = recupera_imagem(id)
     print(arquivo)
-    if arquivo != 'livro.png':
+    if arquivo != 'receita.png':
         os.remove(os.path.join(app.config['UPLOAD_PATH'], arquivo))

@@ -11,17 +11,17 @@
                 </tr>
             </thead>
             <tbody>
-                {% for livro in livros %}
+                {% for receita in receitas %}
                 <tr style="text-align: center;">
-                    <th>{{ livro.nome }}</th>
-                    <td>{{ livro.genero }}</td>
-                    <td>{{ livro.autor }}</td>   
-                    <td>{{ livro.num_paginas }}</td>
+                    <th>{{ receita.nome }}</th>
+                    <td>{{ receita.genero }}</td>
+                    <td>{{ receita.autor }}</td>   
+                    <td>{{ receita.num_paginas }}</td>
                     <td>
-                        <a href="{{ url_for('visualizar', id=livro.id) }}" class="btn btn-sm" style=" background-image: linear-gradient( to left, #4dd4ac, #1FB7); color: #fff;">Visualizar</a>
+                        <a href="{{ url_for('visualizar', id=receita.id) }}" class="btn btn-sm" style=" background-image: linear-gradient( to left, #4dd4ac, #1FB7); color: #fff;">Visualizar</a>
                         {% if session['usuario_logado'] %}
-                        <a href="{{ url_for('editar', id=livro.id) }}" class="btn btn-sm" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Editar</a>
-                        <a href="{{ url_for('deletar', id=livro.id) }}" class="btn btn-sm" style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
+                        <a href="{{ url_for('editar', id=receita.id) }}" class="btn btn-sm" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Editar</a>
+                        <a href="{{ url_for('deletar', id=receita.id) }}" class="btn btn-sm" style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
                         {% endif %}
                     </td>
                 </tr>

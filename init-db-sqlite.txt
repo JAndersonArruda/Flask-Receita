@@ -1,0 +1,17 @@
+Inicializar o database ---> flask db init
+
+solicitar as migrações ---> flask db migrate
+
+adicionar migrações ao database ---> flask db upgrade
+
+
+
+acessar modulo de criação de usuario ---> flask shell
+
+acessar a tabela Usuario ---> from models import Usuarios
+
+criar usuario ---> Usuarios.create('name','username','password')
+
+
+
+rodar projeto ---> flask run
