@@ -126,5 +126,5 @@ def recupera_imagem(id):
 def deleta_arquivo(id):
     arquivo = recupera_imagem(id)
     print(arquivo)
-    if arquivo != 'receita.png':
+    if arquivo != 'receita.jpg':
         os.remove(os.path.join(app.config['UPLOAD_PATH'], arquivo))
