@@ -3,10 +3,10 @@ from app import db
 
 class Receitas(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome = db.Column(db.String(150), nullable=False)
-    genero = db.Column(db.String(100), nullable=False)
-    autor = db.Column(db.String(150), nullable=False)
-    num_paginas = db.Column(db.Integer, nullable=False)
+    nome = db.Column(db.String(90), nullable=False)
+    ingrediente = db.Column(db.String(500), nullable=False)
+    modo_preparo = db.Column(db.String(1000), nullable=False)
+    autor = db.Column(db.String(90), nullable=False)
 
     def __repr__(self):
         return "<Name %r>" % self.nome
@@ -14,7 +14,7 @@ class Receitas(db.Model):
 
 class Usuarios(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    nome = db.Column(db.String(150), nullable=False)
+    nome = db.Column(db.String(90), nullable=False)
     username = db.Column(db.String(30), nullable=False)
     senha = db.Column(db.String(30), nullable=False)
 

@@ -9,9 +9,12 @@
             <img src="{{ url_for('imagem', nome_arquivo=capa) }}" class="card-img-top" alt="...">
         </div>
         <div class="col-sm-8">
-            <p class="h4"><strong>Gênero: </strong>{{ receita.genero }}</p>
             <p class="h4"><strong>Autor: </strong>{{ receita.autor }}</p>
-            <p class="h4"><strong>Número de páginas: </strong>{{ receita.num_paginas }}</p>
+            <hr>
+            <p class="h5"><strong>Ingredientes</strong></p>
+            <p class="h6" id="paragrafo">{{ receita.ingrediente }}</p>
+            <p class="h5"><strong>Modo de Preparo</strong></p>
+            <p class="h6" id="paragrafo">{{ receita.modo_preparo }}</p>
         </div>
     </div>
 {% endblock %}

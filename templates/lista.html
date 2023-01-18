@@ -4,9 +4,7 @@
             <thead class="thead-default">
                 <tr style="text-align: center;">
                     <th>Nome</th>
-                    <th>Gênero</th>
                     <th>Autor</th>
-                    <th>Número de páginas</th>
                     <th>Opções</th>
                 </tr>
             </thead>
@@ -14,9 +12,7 @@
                 {% for receita in receitas %}
                 <tr style="text-align: center;">
                     <th>{{ receita.nome }}</th>
-                    <td>{{ receita.genero }}</td>
                     <td>{{ receita.autor }}</td>   
-                    <td>{{ receita.num_paginas }}</td>
                     <td>
                         <a href="{{ url_for('visualizar', id=receita.id) }}" class="btn btn-sm" style=" background-image: linear-gradient( to left, #4dd4ac, #1FB7); color: #fff;">Visualizar</a>
                         {% if session['usuario_logado'] %}

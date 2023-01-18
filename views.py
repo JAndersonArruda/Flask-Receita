@@ -18,9 +18,9 @@ def cadastro():
 @app.route('/criar', methods=['POST',])
 def criar():
     nome = request.form['nome']
-    genero = request.form['genero']
+    ingrediente = request.form['ingrediente']
+    modo_preparo = request.form['modo_preparo']
     autor = request.form['autor']
-    num_paginas = request.form['num_paginas']
 
     receita = Receitas.query.filter_by(nome=nome).first()
 
@@ -28,7 +28,7 @@ def criar():
         flash(f'A Receita de {nome} já existe em nossa platafomar! Caso haja alguma mudança na receita, tente edita-lá.')
         return redirect(url_for('home'))
 
-    nova_receita = Receitas(nome=nome, genero=genero, autor=autor, num_paginas=num_paginas)
+    nova_receita = Receitas(nome=nome, ingrediente=ingrediente, modo_preparo=modo_preparo, autor=autor)
 
     db.session.add(nova_receita)
     db.session.commit()
@@ -46,16 +46,17 @@ def editar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('editar')))
     receita = Receitas.query.filter_by(id=id).first()
+    capa_receita = recupera_imagem(id)
     print(receita)
-    return render_template('editar.html', titulo='Editar Receita', receita=receita)
+    return render_template('editar.html', titulo='Editar Receita', receita=receita, capa=capa_receita)
 
 @app.route('/atualizar', methods=['POST',])
 def atualizar():
     receita = Receitas.query.filter_by(id=request.form['id']).first()
     receita.nome = request.form['nome']
-    receita.genero = request.form['genero']
+    receita.ingrediente = request.form['ingrediente']
+    receita.modo_preparo = request.form['modo_preparo']
     receita.autor = request.form['autor']
-    receita.num_paginas = request.form['num_paginas']
 
     db.session.add(receita)
     db.session.commit()
@@ -76,6 +77,7 @@ def deletar(id):
     Receitas.query.filter_by(id=id).delete()
     db.session.commit()
     flash(f'A receita foi deletada com sucesso!')
+    deleta_arquivo(id=id) # funcção para deletar o os uploads
 
     return redirect(url_for('home'))
 
