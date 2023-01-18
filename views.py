@@ -130,3 +130,4 @@ def deleta_arquivo(id):
     print(arquivo)
     if arquivo != 'receita.jpg':
         os.remove(os.path.join(app.config['UPLOAD_PATH'], arquivo))
+
