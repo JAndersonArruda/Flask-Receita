@@ -6,15 +6,20 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <img src="{{ url_for('imagem', nome_arquivo=capa) }}" class="card-img-top" alt="...">
+            <img src="{{ url_for('imagem', nome_arquivo=capa) }}" class="card-img-top rounded" alt="...">
             <hr>
             <p class="h6 fw-lighter text-center"><strong>Autor(a):</strong> {{ receita.autor }}</p>
         </div>
         <div class="col-sm-8">
             <p class="fs-5 fw-lighter"><strong>Ingredientes</strong></p>
-            <p class="fs-6 fw-lighter" id="paragrafo">{{ receita.ingrediente }}</p>
+            <ul class="fs-6 fw-lighter">
+                <li>
+                    {{ receita.ingrediente }}
+                </li>
+
+            </ul>
             <p class="fs-5 fw-lighter"><strong>Modo de Preparo</strong></p>
             <p class="fs-6 fw-lighter" id="paragrafo">{{ receita.modo_preparo }}</p>
         </div>
     </div>
-{% endblock %}
+{% endblock %}  

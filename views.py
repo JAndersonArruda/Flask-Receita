@@ -64,7 +64,7 @@ def atualizar():
     capa = request.files['capa']
     upload_path = app.config['UPLOAD_PATH']
     timestamp = time.time()
-    deleta_arquivo(receita.id)
+    deleta_arquivo(id=receita.id)
     capa.save(f'{upload_path}/capa{receita.id}-{timestamp}.jpg')
 
     flash(f'A receita de {receita.nome} foi atualizada com sucesso!')

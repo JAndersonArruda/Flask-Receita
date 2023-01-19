@@ -21,3 +21,15 @@ body {
     margin-top: 1%;
     margin-bottom: 3%;
 }
+
+#table {
+    max-width: 100%;
+}
+
+#options {
+    width: 23%;
+}
+
+#table-info {
+    width: 37.5%;
+}
