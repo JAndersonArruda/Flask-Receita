@@ -15,11 +15,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="{{ url_for('home') }}"><i class="bi bi-house-door"></i> Home</a>
+                  <a class="nav-link fw-lighter" aria-current="page" href="{{ url_for('home') }}"><i class="bi bi-journal-text"></i> <strong>Receitas</strong></a>
                 </li>
                 {% if session['usuario_logado'] %}
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="{{ url_for('cadastro') }}"><i class="bi bi-book"></i> Adicionar Receita </a>
+                  <a class="nav-link fw-lighter" aria-current="page" href="{{ url_for('cadastro') }}"><i class="bi bi-journal-plus"></i> <strong>Add Receitas</strong></a>
                 </li>
                 {% endif %}
               </ul>
@@ -27,11 +27,11 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex">
                   {% if session['usuario_logado'] %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right"></i> SigUt</a>
+                    <a class="nav-link fw-lighter" href="{{ url_for('logout') }}"><i class="bi bi-door-closed-fill"></i> <strong>SigUt</strong></a>
                   </li>
                   {% else %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('login') }}"><i class="bi bi-box-arrow-in-right"></i> SigIn</a>
+                    <a class="nav-link fw-lighter" href="{{ url_for('login') }}"><i class="bi bi-door-open-fill"></i> <strong>SigIn</strong></a>
                   </li>
                   {% endif %}
                 </ul>
@@ -51,9 +51,10 @@
             {% endif %}
           {% endwith %}
           <div class="page-header">
-              <h1>{{ titulo }}</h1>
+              <h1 class="mt-4 mb-3 ms-5 fs-3 fw-lighter">{{ titulo }}</h1>
           </div>
-            {% block container %}  {% endblock %}
+            {% block container %}
+            {% endblock %}
         </div>
         <!-- Footer -->
         <footer class="pt-2">

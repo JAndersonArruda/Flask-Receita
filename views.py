@@ -13,7 +13,7 @@ def home():
 def cadastro():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('cadastro')))
-    return render_template('cadastro.html', titulo='Adicionar Receita')
+    return render_template('cadastro.html', titulo='Add Receitas')
 
 @app.route('/criar', methods=['POST',])
 def criar():
@@ -77,7 +77,7 @@ def deletar(id):
     Receitas.query.filter_by(id=id).delete()
     db.session.commit()
     flash(f'A receita foi deletada com sucesso!')
-    deleta_arquivo(id=id) # funcção para deletar o os uploads
+    deleta_arquivo(id) # funcção para deletar o os uploads
 
     return redirect(url_for('home'))
 

@@ -1,20 +1,20 @@
 {% extends "template.html" %}
 {% block container %}
     <div class="page-header text-center py-3">
-        <h1>{{ receita.nome }}</h1>
+        <h1 class="fs-3 fw-lighter">{{ receita.nome }}</h1>
         <hr>
     </div>
     <div class="row">
         <div class="col-sm-4">
             <img src="{{ url_for('imagem', nome_arquivo=capa) }}" class="card-img-top" alt="...">
+            <hr>
+            <p class="h6 fw-lighter text-center"><strong>Autor(a):</strong> {{ receita.autor }}</p>
         </div>
         <div class="col-sm-8">
-            <p class="h4"><strong>Autor: </strong>{{ receita.autor }}</p>
-            <hr>
-            <p class="h5"><strong>Ingredientes</strong></p>
-            <p class="h6" id="paragrafo">{{ receita.ingrediente }}</p>
-            <p class="h5"><strong>Modo de Preparo</strong></p>
-            <p class="h6" id="paragrafo">{{ receita.modo_preparo }}</p>
+            <p class="fs-5 fw-lighter"><strong>Ingredientes</strong></p>
+            <p class="fs-6 fw-lighter" id="paragrafo">{{ receita.ingrediente }}</p>
+            <p class="fs-5 fw-lighter"><strong>Modo de Preparo</strong></p>
+            <p class="fs-6 fw-lighter" id="paragrafo">{{ receita.modo_preparo }}</p>
         </div>
     </div>
 {% endblock %}

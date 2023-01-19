@@ -3,13 +3,13 @@
     <form method="POST" action="{{ url_for('autenticar') }}">
         <input type="hidden" name="proxima" value="{{ proxima or url_for('home') }}">
         <div class="mb-3">
-            <label>Nome de usuário:</label>
-            <input class="form-control" type="text" name="usuario" required>
+            <label class="fw-lighter">Nome de usuário:</label>
+            <input class="form-control mt-1 fw-lighter" type="text" name="usuario" required>
         </div>
         <div class="mb-3">
-            <label>Senha:</label>
-            <input class="form-control" type="password" name="senha" required>
+            <label class="fw-lighter">Senha:</label>
+            <input class="form-control mt-1 fw-lighter" type="password" name="senha" required>
         </div>
-        <button class="btn btn-primary" type="submit">Entrar</button>
+        <button class="btn btn-sm  ps-3 pe-3 fw-lighter" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;" type="submit">Acessar</button>
     </form>
 {% endblock %}
