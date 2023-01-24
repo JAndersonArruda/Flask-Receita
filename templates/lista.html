@@ -1,28 +1,51 @@
 {% extends "template.html" %}
 {% block container %}
-        <table id="table" class="table table-responsive table-bordered mt-3" style="border-color: #19BFB7;">
-            <thead class="thead-default">
-                <tr style="text-align: center;">
-                    <th class="fw-lighter"><strong>Nome</strong></th>
-                    <th class="fw-lighter"><strong>Autor</strong></th>
-                    <th class="fw-lighter"><strong>Opções</strong></th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider" style="border-color: #19BFB7;">
-                {% for receita in receitas %}
-                <tr style="text-align: center;">
-                    <th id="table-info" class="fw-lighter">{{ receita.nome }}</th>
-                    <td id="table-info" class="fw-lighter">{{ receita.autor }}</td>   
-                    <td id="options">
+    <div class="card-deck row">
+        {% for receita in receitas %}
+            <div class="col-sm-3 mb-4" style="text-align: center;">
+                <div class="card" id="box-shadow"> 
+                    <img src="{{ url_for('imagem', nome_arquivo=capa) }}" class="card-img-top rounded" alt="imagem da Receita">
+                    <div class="card-body">
+                        <h5 class="card-title fw-lighter">{{ receita.nome }}</h5>
+                    </div>
+                    <div class="card-footer">
+                        <p class="card-text fw-lighter">Autor: {{ receita.autor }}</p>
                         <a href="{{ url_for('visualizar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style=" background-image: linear-gradient( to left, #4dd4ac, #1FB7); color: #fff;">Visualizar</a>
                         {% if session['usuario_logado'] %}
-                        <a href="{{ url_for('editar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Editar</a>
-                        <a href="{{ url_for('deletar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
+                            <a href="{{ url_for('editar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Editar</a>
+                            <a href="{{ url_for('deletar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
                         {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+
+    <!-- <table id="table" class="table table-responsive table-bordered mt-3" style="border-color: #19BFB7;">
+        <thead class="thead-default">
+            <tr style="text-align: center;">
+                <th class="fw-lighter"><strong>Nome</strong></th>
+                <th class="fw-lighter"><strong>Autor</strong></th>
+                <th class="fw-lighter"><strong>Opções</strong></th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider" style="border-color: #19BFB7;">
+            {% for receita in receitas %}
+            <tr style="text-align: center;">
+                <th id="table-info" class="fw-lighter">{{ receita.nome }}</th>
+                <td id="table-info" class="fw-lighter">{{ receita.autor }}</td>   
+                <td id="options">
+                    <a href="{{ url_for('visualizar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style=" background-image: linear-gradient( to left, #4dd4ac, #1FB7); color: #fff;">Visualizar</a>
+                    {% if session['usuario_logado'] %}
+                    <a href="{{ url_for('editar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Editar</a>
+                    <a href="{{ url_for('deletar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table> -->
         
 {% endblock %}

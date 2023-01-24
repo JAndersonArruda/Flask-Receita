@@ -20,4 +20,9 @@ rodar projeto com Debug ativado ---> flask --debug run
 
 
 
+{% set counter = 1 %}
 
+{% if counter is divisibleby 4 %}
+    <br>
+{% endif %}
+{% set counter = counter + 1 %}

@@ -7,7 +7,9 @@ import time
 @app.route('/')
 def home():
     lista = Receitas.query.order_by(Receitas.id)
-    return render_template('lista.html', titulo='Receitas', receitas=lista)
+    capa_receita = recupera_imagem_card(Receitas.id)
+    print(capa_receita)
+    return render_template('lista.html', titulo='Receitas', receitas=lista, capa=capa_receita)
 
 @app.route('/cadastro')
 def cadastro():
@@ -126,6 +128,16 @@ def imagem(nome_arquivo):
 def recupera_imagem(id):
     for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
         if f'capa{id}' in nome_arquivo:
+            return nome_arquivo
+
+    return 'receita.jpg'
+
+
+def recupera_imagem_card(id):
+    for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
+        print(f"capa{id}")
+        print(f"capa{id}" in nome_arquivo)
+        if "capa4" in nome_arquivo:
             return nome_arquivo
 
     return 'receita.jpg'
