@@ -84,8 +84,13 @@ def deletar(id):
 @app.route('/visualizar/<int:id>')
 def visualizar(id):
     receita = Receitas.query.filter_by(id=id).first()
+    ingredientes = receita.ingrediente
     capa_receita = recupera_imagem(id)
-    return render_template('receita.html', receita=receita, capa=capa_receita)
+    return render_template('receita.html', receita=receita, ingredientes=ingredientes.split(";"), capa=capa_receita)
+
+# receitas=receitas,
+# lista = Receitas.query.order_by(Receitas.id)
+#     return render_template('lista.html', titulo='Receitas', receitas=lista)
 
 @app.route('/login')
 def login():

@@ -15,3 +15,9 @@ criar usuario ---> Usuarios.create('name','username','password')
 
 
 rodar projeto ---> flask run
+
+rodar projeto com Debug ativado ---> flask --debug run
+
+
+
+
