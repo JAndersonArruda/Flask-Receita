@@ -22,11 +22,33 @@ body {
     margin-bottom: 3%;
 }
 
+#autor {
+    margin-top: -10px;
+    font-style: italic;
+}
+
+#card-elemnts {
+    background-image: linear-gradient( to top, #0dcaf0, #19a); 
+    color: #ffffff;
+    margin-top: -3px;
+}
+
+
 #box-shadow {
     -webkit-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
     -moz-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
     box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
+    border: 0px;
 }
+
+#box-shadow-button {
+    -webkit-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
+    -moz-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
+    box-shadow: 0px 0px 35px -1px rgba(255,255,255,1);
+    border: 0px;
+}
+
+
 
 #table {
     max-width: 100%;

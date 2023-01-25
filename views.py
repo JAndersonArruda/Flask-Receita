@@ -7,7 +7,7 @@ import time
 @app.route('/')
 def home():
     lista = Receitas.query.order_by(Receitas.id)
-    capa_receita = recupera_imagem_card(Receitas.id)
+    capa_receita = recupera_imagem(Receitas.id)
     print(f"as capas da rome: {capa_receita}")
     return render_template('lista.html', titulo='Receitas', receitas=lista, capa=capa_receita)
 
