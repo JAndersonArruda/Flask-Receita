@@ -8,7 +8,7 @@ import time
 def home():
     lista = Receitas.query.order_by(Receitas.id)
     capa_receita = recupera_imagem_card(Receitas.id)
-    print(capa_receita)
+    print(f"as capas da rome: {capa_receita}")
     return render_template('lista.html', titulo='Receitas', receitas=lista, capa=capa_receita)
 
 @app.route('/cadastro')
@@ -88,7 +88,7 @@ def visualizar(id):
     receita = Receitas.query.filter_by(id=id).first()
     ingredientes = receita.ingrediente
     capa_receita = recupera_imagem(id)
-    return render_template('receita.html', receita=receita, ingredientes=ingredientes.split(";"), capa=capa_receita)
+    return render_template('receita.html', receita=receita, ingredientes=ingredientes.split("\n"), capa=capa_receita)
 
 # receitas=receitas,
 # lista = Receitas.query.order_by(Receitas.id)
@@ -127,17 +127,27 @@ def imagem(nome_arquivo):
 
 def recupera_imagem(id):
     for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
-        if f'capa{id}' in nome_arquivo:
+        print(f"os nomes do arquivo:{nome_arquivo}")
+        print(f" as id da capa são: capa{id}")
+        if f"capa{id}" in nome_arquivo:
             return nome_arquivo
+        
+    return "receita.jpg"
 
-    return 'receita.jpg'
+# nome_do_arquivo = capa em receitas, capa está na rote home
+def image_card():
+    
+    return
 
+def recupera_image_card_test(id):
+    
+    return
 
 def recupera_imagem_card(id):
     for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
         print(f"capa{id}")
         print(f"capa{id}" in nome_arquivo)
-        if "capa4" in nome_arquivo:
+        if "capa3" in nome_arquivo:
             return nome_arquivo
 
     return 'receita.jpg'
