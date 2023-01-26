@@ -19,8 +19,10 @@
                     </li>
                 {% endfor %}
             </ul>
-            <p class="fs-5 fw-lighter"><strong>Modo de Preparo</strong></p>
-            <p class="fs-6 fw-lighter" id="paragrafo">{{ receita.modo_preparo }}</p>
+            <p class="fs-5 fw-lighter mb-5"><strong>Modo de Preparo</strong></p>
+            {% for modo_preparo in modo_de_preparo %}
+                <p class="fs-6 fw-lighter" id="paragrafo">{{ modo_preparo }}</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

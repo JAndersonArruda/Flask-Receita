@@ -2,11 +2,13 @@ from flask import render_template, request, redirect, session, flash, url_for, s
 from app import app, db
 from models import Receitas, Usuarios
 import os
-import time
+import time, glob
+
 
 @app.route('/')
 def home():
     lista = Receitas.query.order_by(Receitas.id)
+    # capaId = int(Receitas.id)
     capa_receita = recupera_imagem(Receitas.id)
     print(f"as capas da rome: {capa_receita}")
     return render_template('lista.html', titulo='Receitas', receitas=lista, capa=capa_receita)
@@ -15,6 +17,7 @@ def home():
 def cadastro():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('cadastro')))
+    
     return render_template('cadastro.html', titulo='Add Receitas')
 
 @app.route('/criar', methods=['POST',])
@@ -38,7 +41,7 @@ def criar():
     capa = request.files['capa']
     upload_path = app.config['UPLOAD_PATH']
     timestamp = time.time()
-    capa.save(f'{upload_path}/capa{nova_receita.id}-{timestamp}.jpg')
+    capa.save(f'{upload_path}/capa{nova_receita.id}.jpg')
 
     flash(f'A Receita de {nome} adicionada com sucesso!')
     return redirect(url_for('home'))
@@ -67,7 +70,7 @@ def atualizar():
     upload_path = app.config['UPLOAD_PATH']
     timestamp = time.time()
     deleta_arquivo(id=receita.id)
-    capa.save(f'{upload_path}/capa{receita.id}-{timestamp}.jpg')
+    capa.save(f'{upload_path}/capa{receita.id}.jpg')
 
     flash(f'A receita de {receita.nome} foi atualizada com sucesso!')
     return redirect(url_for('home'))
@@ -87,8 +90,9 @@ def deletar(id):
 def visualizar(id):
     receita = Receitas.query.filter_by(id=id).first()
     ingredientes = receita.ingrediente
+    modo_de_preparo = receita.modo_preparo
     capa_receita = recupera_imagem(id)
-    return render_template('receita.html', receita=receita, ingredientes=ingredientes.split("\n"), capa=capa_receita)
+    return render_template('receita.html', receita=receita, ingredientes=ingredientes.split("\n"), modo_de_preparo=modo_de_preparo.split("\n"), capa=capa_receita)
 
 # receitas=receitas,
 # lista = Receitas.query.order_by(Receitas.id)
@@ -128,29 +132,11 @@ def imagem(nome_arquivo):
 def recupera_imagem(id):
     for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
         print(f"os nomes do arquivo:{nome_arquivo}")
-        print(f" as id da capa são: capa{id}")
+        print(f" as id da capa são: {id}")
         if f"capa{id}" in nome_arquivo:
             return nome_arquivo
         
     return "receita.jpg"
-
-# nome_do_arquivo = capa em receitas, capa está na rote home
-def image_card():
-    
-    return
-
-def recupera_image_card_test(id):
-    
-    return
-
-def recupera_imagem_card(id):
-    for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
-        print(f"capa{id}")
-        print(f"capa{id}" in nome_arquivo)
-        if "capa3" in nome_arquivo:
-            return nome_arquivo
-
-    return 'receita.jpg'
 
 def deleta_arquivo(id):
     arquivo = recupera_imagem(id)
