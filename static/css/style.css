@@ -29,12 +29,14 @@ footer .container .h3 {
     font-weight: 600;
 }
 
-footer .container .redes img {
+footer .container .redes li {
     margin-right: 10px;
+    display: inline;
+    text-align: center;
 }
 
 footer .container ul > p {
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 }
 
 footer .container li {
@@ -89,7 +91,6 @@ body {
     color: #ffffff;
     margin-top: -3px;
 }
-
 
 #box-shadow {
     -webkit-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
