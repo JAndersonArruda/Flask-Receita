@@ -2,8 +2,8 @@
 {% block container %}
     <div class="card-deck row mb-5">
         {% for receita in receitas %}
-            <div class="col-sm-3 mb-4" style="text-align: center;">
-                <div class="card" id="box-shadow"> 
+            <div class="col-sm-3" id="card">
+                <div class="card mb-3" id="box-shadow">
                     <img src="uploads\capa{{receita.id}}.jpg" class="card-img-top" style="height: 210px;" alt="Imagem da Receita">
                     <div class="card-body rounded" id="card-elemnts">
                         <h5 class="card-title fw-lighter">{{ receita.nome }}</h5>
