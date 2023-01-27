@@ -11,7 +11,7 @@ def home():
     # capaId = int(Receitas.id)
     capa_receita = recupera_imagem(Receitas.id)
     print(f"as capas da rome: {capa_receita}")
-    return render_template('lista.html', titulo='Receitas', receitas=lista, capa=capa_receita)
+    return render_template('home.html', titulo='Receitas', receitas=lista, capa=capa_receita)
 
 @app.route('/cadastro')
 def cadastro():
@@ -96,7 +96,7 @@ def visualizar(id):
 
 # receitas=receitas,
 # lista = Receitas.query.order_by(Receitas.id)
-#     return render_template('lista.html', titulo='Receitas', receitas=lista)
+#     return render_template('home.html', titulo='Receitas', receitas=lista)
 
 @app.route('/login')
 def login():

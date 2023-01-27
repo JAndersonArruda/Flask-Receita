@@ -51,19 +51,62 @@
             {% endif %}
           {% endwith %}
           <div class="page-header">
-              <h1 class="mt-4 mb-5 ms-5 fs-3 fw-lighter">{{ titulo }}</h1>
+            <h1 class="mt-4 mb-5 ms-5 fs-3 fw-lighter">{{ titulo }}</h1>
           </div>
             {% block container %}
             {% endblock %}
         </div>
         <!-- Footer -->
-        <footer class="pt-2">
-            <!-- Copyright -->
-            <div class="text-center py-1">
-                <p class="text-white">© Álbum de Receitas - 2023</p>
+        {% block footer %}
+          <footer>
+            <div class="container">
+              <ul class="col">
+                <h3>Flask_Receitas</h3>
+                <p>Este projeto foi desenvolvido para fim acadêmicos</p>
+                <div class="redes">
+                  <img src="" alt="">
+                  <img src="" alt="">
+                  <img src="" alt="">
+                  <img src="" alt="">
+                </div>
+              </ul>
+              <ul class="col">
+                <h3>Link</h3>
+                <li>
+                  <a href="{{ url_for('home') }}">Receitas</a>
+                </li>
+                {% if session['usuario_logado'] %}
+                  <li>
+                    <a href="{{ url_for('cadastro') }}">Add Receitas</a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('logout') }}">SingUt</a>
+                  </li>
+                {% else %}
+                  <li>
+                    <a href="{{ url_for('login') }}">Log Admim</a>
+                  </li>
+                {% endif %}
+              </ul>
+              <ul class="col">
+                <h3>Suporte</h3>
+
+              </ul>
+              <ul class="col">
+                <h3>Contatos</h3>
+                <li>
+                  <p>+55 (83) 99970-9144</p>
+                </li>
+                <li>
+                  <p>flaskreceita@gmail.com</p>
+                </li>
+                <li>
+                  <p>Brasil</p>
+                </li>
+              </ul>
             </div>
-            <!-- Copyright -->
-        </footer>
+          </footer>
+        {% endblock%}
         <!-- Footer -->
     </body>
 </html>

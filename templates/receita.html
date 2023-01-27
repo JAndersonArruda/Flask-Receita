@@ -10,7 +10,7 @@
             <hr>
             <p class="h6 fw-lighter text-center"><strong>Autor(a):</strong> {{ receita.autor }}</p>
         </div>
-        <div class="col-sm-8">
+        <div class="col-sm-3">
             <p class="fs-5 fw-lighter"><strong>Ingredientes</strong></p>
             <ul class="fs-6 fw-lighter">
                 {% for ingrediente in ingredientes %}
@@ -19,10 +19,21 @@
                     </li>
                 {% endfor %}
             </ul>
-            <p class="fs-5 fw-lighter mb-5"><strong>Modo de Preparo</strong></p>
+        </div>
+        <div class="col-sm-4">
+            <p class="fs-5 fw-lighter mb-3"><strong>Modo de Preparo</strong></p>
             {% for modo_preparo in modo_de_preparo %}
                 <p class="fs-6 fw-lighter" id="paragrafo">{{ modo_preparo }}</p>
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+{% block footer %}
+    <footer id="footer">
+        <!-- Copyright -->
+        <div class="text-center">
+            <p class="text-white">© Álbum de Receitas - 2023</p>
+        </div>
+        <!-- Copyright -->
+    </footer>
 {% endblock %}
