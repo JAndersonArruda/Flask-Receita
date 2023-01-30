@@ -1,10 +1,15 @@
 {% extends "template.html" %}
+{% block titulo %}
+    <div class="page-header">
+        <h1 class="mb-5 ms-5 fs-3 fw-lighter" style="margin-top: 80px;">{{ titulo }}</h1>
+    </div>
+{% endblock %}
 {% block container %}
     <div class="card-deck row mb-5">
         {% for receita in receitas %}
             <div class="col-sm-3" id="card">
                 <div class="card mb-3" id="box-shadow">
-                    <img src="uploads\capa{{receita.id}}.jpg" class="card-img-top" style="height: 210px;" alt="Imagem da Receita">
+                    <img src="uploads\capa{{ receita.id }}.jpg" class="card-img-top" style="height: 240px;" alt="Imagem da Receita">
                     <div class="card-body rounded" id="card-elemnts">
                         <h5 class="card-title fw-lighter">{{ receita.nome }}</h5>
                         <p class="card-text fw-lighter h-6" id="autor">({{ receita.autor }})</p>
@@ -16,41 +21,106 @@
                         {% if session['usuario_logado'] %}
                             <a href="{{ url_for('editar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3 mb-1" id="box-shadow-button"
                                 style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Editar</a>
+
+                            
                             <a href="{{ url_for('deletar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3 mb-1" id="box-shadow-button"
                                 style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
+                            
+                            <!-- <a href="#" class="btn btn-sm fw-lighter ps-3 pe-3 mb-1" id="box-shadow-button" data-toggle="modal" data-target="#confirmModal"
+                                style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a> -->
                         {% endif %}
                     </div>
                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmar exclusão</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Tem certeza de que deseja excluir esta receita? Essa ação não pode ser desfeita.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <form action="{{ url_for('deletar', id=receita.id) }}" method="post">
+                                <input type="submit" value="Confirmar" name="confirm" class="btn btn-danger">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-    </div>
-    
-
-
-
-    <!-- <table id="table" class="table table-responsive table-bordered mt-3" style="border-color: #19BFB7;">
-        <thead class="thead-default">
-            <tr style="text-align: center;">
-                <th class="fw-lighter"><strong>Nome</strong></th>
-                <th class="fw-lighter"><strong>Autor</strong></th>
-                <th class="fw-lighter"><strong>Opções</strong></th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider" style="border-color: #19BFB7;">
-            {% for receita in receitas %}
-            <tr style="text-align: center;">
-                <th id="table-info" class="fw-lighter">{{ receita.nome }}</th>
-                <td id="table-info" class="fw-lighter">{{ receita.autor }}</td>   
-                <td id="options">
-                    <a href="{{ url_for('visualizar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style=" background-image: linear-gradient( to left, #4dd4ac, #1FB7); color: #fff;">Visualizar</a>
-                    {% if session['usuario_logado'] %}
-                    <a href="{{ url_for('editar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Editar</a>
-                    <a href="{{ url_for('deletar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3" style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table> -->
-        
+    </div>        
+{% endblock %}
+{% block footer %}
+    <footer id="box-shadow">
+        <div class="container">
+            <ul class="col">
+                <h3>Flask_Receitas</h3>
+                <p>Este projeto foi desenvolvido <br> para fims acadêmicos</p>
+                <div class="redes">
+                    <li>
+                        <i class="bi bi-instagram"></i>
+                    </li>
+                    <li>
+                        <i class="bi bi-facebook"></i>
+                    </li>
+                    <li>
+                        <i class="bi bi-twitter"></i>
+                    </li>
+                    <li>
+                        <i class="bi bi-youtube"></i>
+                    </li>
+                    <li>
+                        <i class="bi bi-github"></i>
+                    </li>
+                    <li>
+                        <i class="bi bi-linkedin"></i>
+                    </li>
+                </div>
+            </ul>
+            <ul class="col">
+                <h3>Link</h3>
+                
+                <li>
+                <a href="{{ url_for('home') }}">Receitas</a>
+                </li>
+                {% if session['usuario_logado'] %}
+                    <li>
+                        <a href="{{ url_for('cadastro') }}">Add Receitas</a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('logout') }}">SingUt</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ url_for('login') }}">Log Admim</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <ul class="col">
+                <h3>Suporte</h3>
+                <li>Avaliação</li>
+                <li>Consulta</li>
+                <li>Ajuda</li>
+            </ul>
+            <ul class="col">
+                <h3>Contatos</h3>
+                <li>
+                    <p>+55 (83) 99970-9144</p>
+                </li>
+                <li>
+                    <p>flaskreceita@gmail.com</p>
+                </li>
+                <li>
+                    <p>Brasil</p>
+                </li>
+            </ul>
+        </div>
+    </footer>
 {% endblock %}

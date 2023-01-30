@@ -10,7 +10,6 @@ def home():
     lista = Receitas.query.order_by(Receitas.id)
     # capaId = int(Receitas.id)
     capa_receita = recupera_imagem(Receitas.id)
-    print(f"as capas da rome: {capa_receita}")
     return render_template('home.html', titulo='Receitas', receitas=lista, capa=capa_receita)
 
 @app.route('/cadastro')
@@ -79,12 +78,28 @@ def atualizar():
 def deletar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login'))
+    
     Receitas.query.filter_by(id=id).delete()
     db.session.commit()
     flash(f'A receita foi deletada com sucesso!')
     deleta_arquivo(id) # funcção para deletar o os uploads
 
     return redirect(url_for('home'))
+
+'''
+@app.route('/deletar/<int:id>', methods=['POST'])
+def deletar(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return redirect(url_for('login'))
+    
+    if request.form.get('confirm') == 'Confirmar':
+        Receitas.query.filter_by(id=id).delete()
+        db.session.commit()
+        flash(f'A receita foi deletada com sucesso!')
+        deleta_arquivo(id) # funcção para deletar o os uploads
+
+    return redirect(url_for('home'))
+'''
 
 @app.route('/visualizar/<int:id>')
 def visualizar(id):
@@ -131,8 +146,6 @@ def imagem(nome_arquivo):
 
 def recupera_imagem(id):
     for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
-        print(f"os nomes do arquivo:{nome_arquivo}")
-        print(f" as id da capa são: {id}")
         if f"capa{id}" in nome_arquivo:
             return nome_arquivo
         
