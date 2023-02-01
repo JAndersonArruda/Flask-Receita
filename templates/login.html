@@ -2,14 +2,15 @@
 {% block container %}
     <form method="POST" action="{{ url_for('autenticar') }}">
         <input type="hidden" name="proxima" value="{{ proxima or url_for('home') }}">
+        {{ form.csrf_token() }}
         <div class="mb-3">
-            <label class="fw-lighter">Nome de usuário:</label>
-            <input class="form-control mt-1 fw-lighter" type="text" name="usuario" required>
+            {{ form.username.label(class="fw-lighter") }}
+            {{ form.username(class="form-control mt-1 fw-lighter") }}
         </div>
         <div class="mb-3">
-            <label class="fw-lighter">Senha:</label>
-            <input class="form-control mt-1 fw-lighter" type="password" name="senha" required>
+            {{ form.senha.label(class="fw-lighter") }}
+            {{ form.senha(class="form-control mt-1 fw-lighter") }}
         </div>
-        <button class="btn btn-sm  ps-3 pe-3 fw-lighter" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;" type="submit">Acessar</button>
+        {{ form.login(class="btn btn-sm  ps-3 pe-3 fw-lighter", style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;") }}
     </form>
 {% endblock %}

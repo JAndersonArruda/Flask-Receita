@@ -2,29 +2,32 @@
 {% block container %}
       <form action="{{ url_for('criar') }}" method="post" enctype="multipart/form-data">
         <fieldset>
+          {{ form.csrf_token() }}
           <div class="mt-3 form-group">
-            <label class="fw-lighter" for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" class="form-control mt-1 fw-lighter" required>
+            {{ form.nome.label(class="fw-lighter") }}
+            {{ form.nome(class="form-control mt-1 fw-lighter") }}
           </div>
           <div class="row">
             <div class="mt-3 mb-3 col">
-              <label class="fw-lighter" for="ingrediente">Ingredientes</label>
-              <textarea rows="10" id="ingrediente" name="ingrediente" class="form-control mt-1 fw-lighter" required></textarea>
+              {{ form.ingrediente.label(class="fw-lighter") }}
+              {{ form.ingrediente(rows="10", class="form-control mt-1 fw-lighter") }}
             </div>
             <div class="mt-3 mb-3 col">
-              <label class="fw-lighter" for="modo_preparo">Modo de Preparo</label>
-              <textarea rows="10" id="modo_preparo" name="modo_preparo" class="form-control mt-1 fw-lighter" required></textarea>
+              {{ form.modo_preparo.label(class="fw-lighter") }}
+              {{ form.modo_preparo(rows="10", class="form-control mt-1 fw-lighter") }}
             </div>
           </div>
           <div class="mb-3 form-group">
-            <label class="fw-lighter" for="autor">Autor</label>
-            <input type="text" id="autor" name="autor" class="form-control mt-1 fw-lighter" required>
+            {{ form.autor.label(class="fw-lighter") }}
+            {{ form.autor(class="form-control mt-1 fw-lighter") }}
           </div>
           <div class="mb-3 form-group">
             <label class="fw-lighter" for="capa">Capa</label>
             <input type="file" id="capa" name="capa" accept="jpg" class="form-control mt-1 fw-lighter" required>
           </div>
-          <button type="submit" class="btn btn-sm btn-salvar mt-3 ps-3 pe-3 fw-lighter" style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;">Salvar</button>
+          <div>
+            {{ form.salvar(class="btn btn-sm btn-salvar mt-3 ps-3 pe-3 fw-lighter", style="background-image: linear-gradient( to left, #0dcaf0, #19B); color: #fff;") }}
+          </div>
         </fieldset>
       </form>
 {% endblock %}

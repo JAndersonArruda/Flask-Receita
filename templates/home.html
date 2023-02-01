@@ -26,32 +26,33 @@
                             <a href="{{ url_for('deletar', id=receita.id) }}" class="btn btn-sm fw-lighter ps-3 pe-3 mb-1" id="box-shadow-button"
                                 style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a>
                             
-                            <!-- <a href="#" class="btn btn-sm fw-lighter ps-3 pe-3 mb-1" id="box-shadow-button" data-toggle="modal" data-target="#confirmModal"
-                                style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar</a> -->
+                            <!-- <a href="#confirmModal" class="btn btn-sm fw-lighter ps-3 pe-3 mb-1" id="box-shadow-button" data-toggle="modal" data-target="#confirmModal"
+                                style="background-image: linear-gradient( to left, #e35d6a, #f41c31); color: #fff;">Deletar Confirm</a> -->
                         {% endif %}
                     </div>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Confirmar exclusão</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Tem certeza de que deseja excluir esta receita? Essa ação não pode ser desfeita.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <form action="{{ url_for('deletar', id=receita.id) }}" method="post">
-                                <input type="submit" value="Confirmar" name="confirm" class="btn btn-danger">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            </form>
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirmar exclusão</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Tem certeza de que deseja excluir esta receita? Essa ação não pode ser desfeita.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <form action="{{ url_for('deletar_confirm', id=receita.id) }}" method="post">
+                                        <input type="submit" value="Confirmar" name="confirm" class="btn btn-danger">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <!-- endmodal -->
                 </div>
             </div>
         {% endfor %}

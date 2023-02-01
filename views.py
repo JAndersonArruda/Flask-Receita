@@ -2,13 +2,13 @@ from flask import render_template, request, redirect, session, flash, url_for, s
 from app import app, db
 from models import Receitas, Usuarios
 import os
-import time, glob
+import time
 
+from helpers import FormularioNewReceita, FormularioUsuario
 
 @app.route('/')
 def home():
     lista = Receitas.query.order_by(Receitas.id)
-    # capaId = int(Receitas.id)
     capa_receita = recupera_imagem(Receitas.id)
     return render_template('home.html', titulo='Receitas', receitas=lista, capa=capa_receita)
 
@@ -17,14 +17,20 @@ def cadastro():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('cadastro')))
     
-    return render_template('cadastro.html', titulo='Add Receitas')
+    form = FormularioNewReceita()
+    return render_template('cadastro.html', titulo='Add Receitas', form=form)
 
 @app.route('/criar', methods=['POST',])
 def criar():
-    nome = request.form['nome']
-    ingrediente = request.form['ingrediente']
-    modo_preparo = request.form['modo_preparo']
-    autor = request.form['autor']
+    form = FormularioNewReceita(request.form)
+    
+    if not form.validate_on_submit():
+        return redirect(url_for('cadastro'))
+    
+    nome = form.nome.data
+    ingrediente = form.ingrediente.data
+    modo_preparo = form.modo_preparo.data
+    autor = form.autor.data
 
     receita = Receitas.query.filter_by(nome=nome).first()
 
@@ -86,9 +92,9 @@ def deletar(id):
 
     return redirect(url_for('home'))
 
-'''
+
 @app.route('/deletar/<int:id>', methods=['POST'])
-def deletar(id):
+def deletar_confirm(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login'))
     
@@ -100,6 +106,7 @@ def deletar(id):
 
     return redirect(url_for('home'))
 '''
+'''
 
 @app.route('/visualizar/<int:id>')
 def visualizar(id):
@@ -109,20 +116,18 @@ def visualizar(id):
     capa_receita = recupera_imagem(id)
     return render_template('receita.html', receita=receita, ingredientes=ingredientes.split("\n"), modo_de_preparo=modo_de_preparo.split("\n"), capa=capa_receita)
 
-# receitas=receitas,
-# lista = Receitas.query.order_by(Receitas.id)
-#     return render_template('home.html', titulo='Receitas', receitas=lista)
-
 @app.route('/login')
 def login():
+    form_User = FormularioUsuario()
     proxima = request.args.get('proxima')
-    return render_template('login.html', proxima=proxima, titulo='SigIn')
+    return render_template('login.html', proxima=proxima, titulo='SigIn', form=form_User)
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
-    usuario = Usuarios.query.filter_by(username=request.form['usuario']).first()
+    form_User = FormularioUsuario(request.form)
+    usuario = Usuarios.query.filter_by(username=form_User.username.data).first()
     if usuario:
-        if request.form['senha'] == usuario.senha:
+        if form_User.senha.data == usuario.senha:
             session['usuario_logado'] = usuario.username
             flash(usuario.username + ' logado com sucesso!')
             proxima_pagina = request.form['proxima']
