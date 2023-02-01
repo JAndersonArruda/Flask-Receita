@@ -2,15 +2,18 @@ from flask import render_template, request, redirect, session, flash, url_for, s
 from app import app, db
 from models import Receitas, Usuarios
 import os
-import time
 
 from helpers import FormularioNewReceita, FormularioUsuario
 
 @app.route('/')
 def home():
     lista = Receitas.query.order_by(Receitas.id)
+    
+    user_instance = Usuarios
+    usuario = user_instance.username
+    
     capa_receita = recupera_imagem(Receitas.id)
-    return render_template('home.html', titulo='Receitas', receitas=lista, capa=capa_receita)
+    return render_template('home.html', titulo='Receitas', receitas=lista, capa=capa_receita, usuario=usuario)
 
 @app.route('/cadastro')
 def cadastro():
@@ -45,7 +48,6 @@ def criar():
 
     capa = request.files['capa']
     upload_path = app.config['UPLOAD_PATH']
-    timestamp = time.time()
     capa.save(f'{upload_path}/capa{nova_receita.id}.jpg')
 
     flash(f'A Receita de {nome} adicionada com sucesso!')
@@ -73,7 +75,6 @@ def atualizar():
 
     capa = request.files['capa']
     upload_path = app.config['UPLOAD_PATH']
-    timestamp = time.time()
     deleta_arquivo(id=receita.id)
     capa.save(f'{upload_path}/capa{receita.id}.jpg')
 
@@ -119,12 +120,14 @@ def visualizar(id):
 @app.route('/login')
 def login():
     form_User = FormularioUsuario()
+    
     proxima = request.args.get('proxima')
     return render_template('login.html', proxima=proxima, titulo='SigIn', form=form_User)
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
     form_User = FormularioUsuario(request.form)
+    
     usuario = Usuarios.query.filter_by(username=form_User.username.data).first()
     if usuario:
         if form_User.senha.data == usuario.senha:
@@ -142,7 +145,7 @@ def autenticar():
 @app.route('/logout')
 def logout():
     session['usuario_logado'] = None
-    flash('SigUt efetuado com sucesso!')
+    flash('SingUt efetuado com sucesso!')
     return redirect(url_for('home'))
 
 @app.route('/uploads/<nome_arquivo>')
