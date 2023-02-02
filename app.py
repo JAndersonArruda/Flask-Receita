@@ -12,10 +12,12 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + abs_dir + "\\album-receit
 db = SQLAlchemy(app)
 
 from models import *
+from views import *
 
 Migrate(app, db)
 
-from views import *
+
+
 
 if __name__ == '__main__':
     app.run()
