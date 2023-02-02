@@ -14,10 +14,9 @@ db = SQLAlchemy(app)
 from models import *
 from views import *
 
-Migrate(app, db)
-
-
+with app.app_context():
+    db.create_all()
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
