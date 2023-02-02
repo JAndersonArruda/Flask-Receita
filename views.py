@@ -122,7 +122,7 @@ def login():
     form_User = FormularioUsuario()
     
     proxima = request.args.get('proxima')
-    return render_template('login.html', proxima=proxima, titulo='SigIn', form=form_User)
+    return render_template('login.html', proxima=proxima, titulo='SingIn', form=form_User)
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
