@@ -4,6 +4,7 @@ footer {
     width: 100%;
     background-image: linear-gradient(#19B, #19BFB7);
     margin-top: auto 0;
+
 }
 
 #footer {
@@ -20,7 +21,7 @@ footer .container {
     margin-top: 19px;
 }
 
-footer .container .ul {
+footer .container .sub-container-footer {
     width: 25%;
 }
 
@@ -47,16 +48,6 @@ footer .container li {
 footer .container a {
     color: #ffffff;
     text-decoration: none;
-}
-
-@media (max-width: 991px) {
-    footer .container {
-        flex-direction: column;
-    }
-    footer .container ul {
-        width: 100%;
-        margin-bottom: 30px;
-    }
 }
 
 html {
@@ -93,6 +84,13 @@ body {
     margin-top: -3px;
 }
 
+#navbar-box-shadow {
+    -webkit-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
+    -moz-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
+    box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
+    border: 0px;
+}
+
 #box-shadow {
     -webkit-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
     -moz-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
@@ -105,4 +103,36 @@ body {
     -moz-box-shadow: 0px 0px 35px -1px rgba(25,191,183,1);
     box-shadow: 0px 0px 35px -1px rgba(255,255,255,1);
     border: 0px;
+}
+
+@media (max-width: 993px) {
+    nav .navbar-nav {
+        flex-direction: column;
+    }
+    nav .navbar-nav .nav-link {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    nav .navbar-collapse {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 760px) {
+    footer .container {
+        flex-direction: column;
+    }
+    footer .container ul {
+        width: 100%;
+        margin-bottom: 30px;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 575.98px) {
+    nav .navbar {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }

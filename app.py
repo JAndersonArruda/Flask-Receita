@@ -14,7 +14,8 @@ db = SQLAlchemy(app)
 from models import *
 from views import *
 
-with app.app_context():
+# troquei o Migrate(app, db) por
+with app.app_context(): 
     db.create_all()
 
 
