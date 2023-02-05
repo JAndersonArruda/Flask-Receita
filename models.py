@@ -31,3 +31,13 @@ class Usuarios(db.Model):
         new_user = Usuarios(nome, username, senha)
         db.session.add(new_user)
         db.session.commit()
+        
+        
+def adiciona_usuario_adm():
+    nome = "Anderson Arruda"
+    username = "anderson"
+    senha = "123adm123"
+    Usuarios.create(nome, username, senha)
+
+# Adicionando o usuário adm antes de iniciar a aplicação
+adiciona_usuario_adm()
