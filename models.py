@@ -40,4 +40,3 @@ def adiciona_usuario_adm():
     Usuarios.create(nome, username, senha)
 
 # Adicionando o usuário adm antes de iniciar a aplicação
-adiciona_usuario_adm()

@@ -17,6 +17,7 @@ from views import *
 # troquei o Migrate(app, db) por
 with app.app_context(): 
     db.create_all()
+    adiciona_usuario_adm() # Adicionando o usuário adm antes de iniciar a aplicação
 
 
 if __name__ == '__main__':
